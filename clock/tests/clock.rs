@@ -287,3 +287,15 @@ fn clocks_with_negative_hours_and_minutes_that_wrap() {
 fn full_clock_and_zeroed_clock() {
     assert_eq!(Clock::new(24, 0), Clock::new(0, 0));
 }
+
+#[test]
+fn clock_with_huge_number_of_minutes() {
+    let clock = Clock::new(1, i32::MAX);
+    assert_eq!(clock.to_string(), "03:07");
+}
+
+#[test]
+fn clock_adding_clock_with_huge_number_of_minutes() {
+    let clock = Clock::new(1, 1).add_minutes(i32::MAX);
+    assert_eq!(clock.to_string(), "03:08");
+}
